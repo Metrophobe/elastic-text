@@ -17,8 +17,8 @@ window.addEventListener("mousemove", (ev) => {
 
 class Particle {
     constructor(ctx, x, y, r,textLength) {
-        this.initialX = Math.random() * 1920;
-        this.initialY = Math.random() * 1080;
+        this.initialX = Math.random() * ctx.canvas.width;
+        this.initialY = Math.random() * ctx.canvas.height;
         this.targetX = x;
         this.targetY = y;
         this.x = this.initialX;
@@ -36,7 +36,7 @@ class Particle {
 
     draw = () => {
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        this.ctx.arc(this.x, this.y, this.r+(Math.cos(Date.now()/1000)), 0, Math.PI * 2);
         this.ctx.fillStyle = "#09f";
         this.ctx.fill();
     }
@@ -72,7 +72,7 @@ let renderPreview = (text) => {
         px += t;
         if (i % 3 == 0) {
             if (px > 0) {
-                particles.push(new Particle(context, (tc * 25) + (canvas.width/2.0-(text.length * 300)), (tr * 25), 1, text.length));
+                particles.push(new Particle(context, (tc * 25) + (canvas.width/2.0-(text.length * 300)), (tr * 25), 2+Math.cos(Date.now()), text.length));
                 px = 0;
             }
             tc++;
